@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MainRestController {
 
+	// bucket size is 888
 	public static HashMapImp<String, Double> hm = new HashMapImp<>(888);
 
 	@GetMapping("/getvalue/{key}")

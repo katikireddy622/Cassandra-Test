@@ -1,19 +1,18 @@
 package info.katikireddy622.cassandratest;
 
 public class HashMapImp<String, Double> {
-	private Entry<String, Double>[] buckets;
-	// private static final int INITIAL_CAPACITY = 1 << 4; // 16
+	private LinkedListImp<String, Double>[] buckets;
 	private int size = 0;
-
 	private int capacity = 0;
 
 	public HashMapImp() {
-		// this(INITIAL_CAPACITY);
+		this.capacity = 888;
+		this.buckets = new LinkedListImp[capacity];
 	}
 
 	public HashMapImp(int capacity) {
 		this.capacity = capacity;
-		this.buckets = new Entry[capacity];
+		this.buckets = new LinkedListImp[capacity];
 	}
 
 	private int getBucketSize() {
@@ -32,9 +31,9 @@ public class HashMapImp<String, Double> {
 	}
 
 	public void put(String key, Double value) {
-		Entry<String, Double> entry = new Entry<>(key, value, null);
+		LinkedListImp<String, Double> entry = new LinkedListImp<>(key, value, null);
 		int bucket = getHash(key) % getBucketSize();
-		Entry<String, Double> existing = buckets[bucket];
+		LinkedListImp<String, Double> existing = buckets[bucket];
 		if (existing == null) {
 			buckets[bucket] = entry;
 			size++;
@@ -57,8 +56,8 @@ public class HashMapImp<String, Double> {
 	}
 
 	public Double get(String key) {
-		Entry<String, Double> bucket = buckets[getHash(key) % getBucketSize()];
-		while (bucket != null) {
+		LinkedListImp<String, Double> bucket = buckets[getHash(key) % getBucketSize()];
+		while (bucket != null) { // traverse the linked list till you found appropriate key
 			if (bucket.key.equals(key)) {
 				return bucket.value;
 			}
@@ -67,12 +66,13 @@ public class HashMapImp<String, Double> {
 		return null;
 	}
 
+	// just toString method for debugging purpose
 	@Override
 	public java.lang.String toString() {
 
 		StringBuilder mapAsString = new StringBuilder("{");
 		for (int i = 0; i < buckets.length; i++) {
-			Entry<String, Double> entry = buckets[i];
+			LinkedListImp<String, Double> entry = buckets[i];
 			if (entry != null)
 				mapAsString.append(entry.toString());
 		}
