@@ -1,4 +1,4 @@
-# Cassandra-Test
+# REST-API For HASHMAP
 
 This project is a REST api service for storing and retreiving data using hashmap
 It consists of two REST end points
